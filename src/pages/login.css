@@ -1,0 +1,40 @@
+.titleText {
+    /*position: absolute;
+    width:80px;
+    height:80px;
+    left: 20px;
+    top:20px;*/
+
+    font-size: 30px;
+    font-weight: bold;
+    font-family: Microsoft YaHei;
+}
+
+.moreText {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Microsoft YaHei;
+}
+
+.tabTitle {
+    font-family: Microsoft YaHei;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+
+    color: rgba(0, 22, 42, 0.6);
+}
+
+.tabRow {
+    font-family: Microsoft YaHei;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px !important;
+    line-height: 22px;
+    /* identical to box height, or 137% 
+    display: flex;*/
+    align-items: center;
+
+    /* themeblack */
+    color: #00162A;
+}
