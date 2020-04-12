@@ -1,32 +1,33 @@
 import Link from 'umi/link';
 import React from 'react';
-import { Card, Table, Col, Row } from 'antd';
+import { Card, Table, Col, Row, Button } from 'antd';
 import { Component } from 'react';
 import Styles from './login.css';
+import { connect } from 'dva';
 const { Meta } = Card;
 
 const Colum = [
   {
-    title:'ID',
+    title: 'ID',
     dataIndex: 'id',
-    width:'15%',
+    width: '15%',
   },
   {
     title: '姓名',
     dataIndex: 'name',
-    width:'30%',
-    render:text=><a href="/">{text}</a>
+    width: '30%',
+    render: text => <a href="/">{text}</a>
   },
   {
     title: '年龄',
     dataIndex: 'age',
-    width:'20%'
+    width: '20%'
   },
   {
-    title:'存款',
-    dataIndex:"ammount",
-    ellipsis:true,
-    width:'35%'
+    title: '存款',
+    dataIndex: "ammount",
+    ellipsis: true,
+    width: '35%'
   }
 ];
 
@@ -34,80 +35,88 @@ const Colum = [
 
 const Data = [
   {
-    key:'0',
+    key: '0',
     id: '1',
     name: '胡歌',
     age: 55,
-    ammount:20000
+    ammount: 20000
   },
   {
-    key:'1',
+    key: '1',
     id: '2',
     name: '周杰伦',
     age: 23,
-    ammount:58778
+    ammount: 58778
   },
   {
-    key:'2',
+    key: '2',
     id: '3',
     name: '张韶涵',
     age: 35,
-    ammount:2135
+    ammount: 2135
   },
   {
-    key:'3',
+    key: '3',
     id: '2',
     name: '周杰伦',
     age: 23,
-    ammount:94569808080898867676736
+    ammount: 94569808080898867676736
   },
   {
-    key:'4',
+    key: '4',
     id: '2',
     name: '周杰伦',
     age: 23,
-    ammount:7686865764353123125346663426
+    ammount: 7686865764353123125346663426
   },
   {
-    key:'5',
+    key: '5',
     id: '2',
     name: '周杰伦',
     age: 23,
-    ammount:20000
+    ammount: 20000
   },
   {
-    key:'6',
+    key: '6',
     id: '2',
     name: '周杰伦',
     age: 23,
-    ammount:20000
+    ammount: 20000
   },
   {
-    key:'7',
+    key: '7',
     id: '2',
     name: '周杰伦',
     age: 23,
-    ammount:2000000000000000000000000
+    ammount: 2000000000000000000000000
   },
   {
-    key:'8',
+    key: '8',
     id: '2',
     name: '周杰伦',
     age: 23,
-    ammount:4526346346342643634655341234
+    ammount: 4526346346342643634655341234
   },
   {
-    key:'9',
+    key: '9',
     id: '2',
     name: '周杰伦',
     age: 23,
-    ammount:20000000000000000000000000000000000
+    ammount: 20000000000000000000000000000000000
   }
 ];
 
 class Home extends Component {
-  Super() {
+  constructor(props){
+    super(props);
+  }
 
+  handleDva = values => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'book/getInfo',
+      payload: 1,
+    });
   }
 
   render() {
@@ -126,18 +135,19 @@ class Home extends Component {
                 extra={<a href="/" className={Styles.moreText} >查看更多</a>}
               >
                 <Table
-                dataSource={Data} 
-                columns={Colum} 
-                rowClassName={Styles.tabRow} 
-                style={{minHeight:'294px'}}
+                  dataSource={Data}
+                  columns={Colum}
+                  rowClassName={Styles.tabRow}
+                  style={{ minHeight: '294px' }}
                 >
-                </Table> 
+                </Table>
               </Card>
 
             </Col>
             <Col span={8}>
 
               <Card title="No.3" style={{ width: '400px' }}>
+                <Button onClick={this.handleDva.bind(this)}>调用Dva服务器数据</Button>
                 <p>第三种测试</p>
               </Card>
 
@@ -156,21 +166,21 @@ class Home extends Component {
           <Row gutter={24}>
             <Col span={8}>
 
-              <Card title="No.4" style={{marginTop:'10px'}}>
+              <Card title="No.4" style={{ marginTop: '10px' }}>
                 <p>第四张卡片</p>
               </Card>
 
             </Col>
             <Col span={8} lg={8} md={24}>
 
-              <Card title="No.5" style={{marginTop:'10px'}}>
+              <Card title="No.5" style={{ marginTop: '10px' }}>
                 <p>第五张卡片</p>
               </Card>
 
             </Col>
-            <Col span={8} lg={8} md={24}> 
+            <Col span={8} lg={8} md={24}>
 
-              <Card title="No.6" style={{marginTop:'10px'}}>
+              <Card title="No.6" style={{ marginTop: '10px' }}>
                 <p>第六张卡片</p>
               </Card>
 
@@ -185,4 +195,7 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default connect(({book,loading})=>({
+  user:book.dataSource,
+  submitting:loading.effects['book/getInfo']
+}))(Home);
